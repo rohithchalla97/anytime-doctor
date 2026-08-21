@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: anytime-doctor-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: anytime-doctor-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: CORS_ORIGINS
+        value: https://anytime-doctor-web.onrender.com
+
+  - type: web
+    name: anytime-doctor-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: anytime-doctor-api
+          envVarKey: RENDER_EXTERNAL_URL
+
+databases:
+  - name: anytime-doctor-db
+    databaseName: anytime_doctor
+    user: anytime_doctor

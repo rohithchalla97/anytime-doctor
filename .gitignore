@@ -1,0 +1,21 @@
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+backend/instance/*.db
+backend/logs/*
+backend/pdfs/*
+
+# Node and native build output
+frontend/node_modules/
+frontend/build/
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/ios/App/Pods/
