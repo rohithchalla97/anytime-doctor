@@ -25,8 +25,6 @@ export default function LoginPage() {
         setError('Wrong password. Please check and try again.');
       else if (msg.includes('No account'))
         setError('No account found. Please register first.');
-      else if (msg.includes('verified'))
-        setError('Account not verified. Please check your OTP.');
       else
         setError(msg || 'Login failed. Please try again.');
     }
@@ -41,10 +39,10 @@ export default function LoginPage() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', fontFamily: 'var(--font-body)' }}>
+    <div className="auth-shell" style={{ minHeight: '100vh', display: 'flex', fontFamily: 'var(--font-body)' }}>
 
       {/* Left panel — brand */}
-      <div style={{
+      <div className="auth-panel auth-brand-panel" style={{
         width: '50%', background: 'linear-gradient(145deg, #04342C 0%, #0F6E56 50%, #1D9E75 100%)',
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
         padding: '60px 56px', position: 'relative', overflow: 'hidden',
@@ -97,12 +95,12 @@ export default function LoginPage() {
       </div>
 
       {/* Right panel — form */}
-      <div style={{
+      <div className="auth-panel auth-form-panel" style={{
         width:'50%', background:'var(--bg)',
         display:'flex', flexDirection:'column', justifyContent:'center',
         padding:'60px 56px', overflowY:'auto',
       }}>
-        <div style={{ maxWidth:400, width:'100%', margin:'0 auto' }} className="slide-right">
+        <div className="auth-form-inner slide-right" style={{ maxWidth:400, width:'100%', margin:'0 auto' }}>
 
           <div style={{ marginBottom:36 }}>
             <h2 style={{ fontFamily:'var(--font-display)', fontSize:28, fontWeight:700, color:'var(--text)', marginBottom:8 }}>

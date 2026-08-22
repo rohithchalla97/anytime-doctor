@@ -36,12 +36,9 @@ export default API;
 // ── Auth ──────────────────────────────────────────────────────
 export const authAPI = {
   register:      data => API.post('/auth/register', data),
-  verifyOtp:     data => API.post('/auth/verify-otp', data),
-  resendOtp:     data => API.post('/auth/resend-otp', data),
   login:         data => API.post('/auth/login', data),
   profile:       ()   => API.get('/auth/profile'),
   updateProfile: data => API.put('/auth/profile/update', data),
-  debugOtp:      data => API.post('/auth/debug-otp', data),
 };
 
 // ── Symptoms ──────────────────────────────────────────────────

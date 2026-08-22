@@ -24,14 +24,11 @@ def register():
 
     user = User(full_name=full_name, email=email or None, mobile=mobile or None)
     user.set_password(password)
-    otp = generate_otp()
-    user.otp        = otp
-    user.otp_expiry = get_otp_expiry(minutes=60)
+    user.is_verified = True
     db.session.add(user)
     db.session.commit()
-    contact = email or mobile
-    send_otp(contact, otp)
-    return jsonify({'message': f'Registration successful. OTP sent to {contact}', 'user_id': user.id}), 201
+    token = create_access_token(identity=str(user.id))
+    return jsonify({'message': 'Registration successful', 'token': token, 'user': user.to_dict()}), 201
 
 def verify_otp():
     data    = request.get_json()
@@ -80,8 +77,6 @@ def login():
         return jsonify({'error': 'No account found with this email or mobile'}), 404
     if not user.check_password(password):
         return jsonify({'error': 'Incorrect password'}), 401
-    if not user.is_verified:
-        return jsonify({'error': 'Account not verified', 'user_id': user.id}), 403
     token = create_access_token(identity=str(user.id))
     return jsonify({'message': 'Login successful', 'token': token, 'user': user.to_dict()}), 200
 

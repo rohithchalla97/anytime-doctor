@@ -38,15 +38,15 @@ export default function DoctorLoginPage() {
   };
 
   return (
-    <div style={{ minHeight:'100vh', display:'flex', fontFamily:'var(--font-body)' }}>
+    <div className="auth-shell" style={{ minHeight:'100vh', display:'flex', fontFamily:'var(--font-body)' }}>
 
       {/* Left — form */}
-      <div style={{
+      <div className="auth-panel auth-form-panel" style={{
         width:'50%', background:'var(--bg)',
         display:'flex', flexDirection:'column', justifyContent:'center',
         padding:'60px 56px', overflowY:'auto',
       }}>
-        <div style={{ maxWidth:400, width:'100%', margin:'0 auto' }} className="slide-left">
+        <div className="auth-form-inner slide-left" style={{ maxWidth:400, width:'100%', margin:'0 auto' }}>
 
           <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:40 }}>
             <div style={{ width:40, height:40, borderRadius:10, background:'var(--g50)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, border:'1px solid var(--g100)' }}>🏥</div>
@@ -114,7 +114,7 @@ export default function DoctorLoginPage() {
       </div>
 
       {/* Right — doctor cards */}
-      <div style={{
+      <div className="auth-panel auth-brand-panel" style={{
         width:'50%',
         background:'linear-gradient(145deg, #085041 0%, #0F6E56 40%, #1D9E75 100%)',
         display:'flex', flexDirection:'column', justifyContent:'center',
