@@ -63,6 +63,8 @@ export const appointmentAPI = {
 // ── Doctor Portal ─────────────────────────────────────────────
 const DOCTOR_BASE = `${BASE_URL}/doctor`;
 
+export const apiBaseUrl = BASE_URL;
+
 export const doctorAPI = {
   login: async (email, password) => {
     const r = await fetch(`${DOCTOR_BASE}/login`, {

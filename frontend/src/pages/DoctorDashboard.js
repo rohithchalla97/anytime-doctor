@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doctorAPI } from '../api/api';
+import { apiBaseUrl, doctorAPI } from '../api/api';
 
 const DAYS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const SLOTS = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
@@ -124,7 +124,7 @@ export default function DoctorDashboard() {
             style={{ width:44, height:24, borderRadius:12, border:'none', cursor:'pointer', background:dark?'var(--g600)':'var(--border2)', position:'relative', transition:'all 0.3s', padding:0, flexShrink:0 }}>
             <span style={{ position:'absolute', top:3, left:dark?23:3, width:18, height:18, borderRadius:'50%', background:'#fff', transition:'left 0.3s', display:'flex', alignItems:'center', justifyContent:'center', fontSize:9 }}>{dark?'🌙':'☀️'}</span>
           </button>
-          <button className="btn btn-ghost btn-sm" onClick={()=>window.open('http://localhost:5000/api/doctor/export','_blank')}>📊 Export</button>
+          <button className="btn btn-ghost btn-sm" onClick={()=>window.open(`${apiBaseUrl}/doctor/export`,'_blank')}>📊 Export</button>
           {doctor && (
             <button onClick={()=>setView('profile')} style={{ display:'flex', alignItems:'center', gap:8, padding:'5px 10px', background:'var(--bg3)', borderRadius:10, border:'1px solid var(--border)', cursor:'pointer', transition:'var(--t)' }}>
               <div style={{ width:30, height:30, borderRadius:'50%', background:'linear-gradient(135deg,var(--g700),var(--g400))', display:'flex', alignItems:'center', justifyContent:'center', color:'#fff', fontWeight:700, fontFamily:'var(--font-display)', fontSize:11 }}>
@@ -295,7 +295,7 @@ export default function DoctorDashboard() {
                         <span style={{ padding:'3px 9px', borderRadius:20, fontSize:10, fontWeight:700, background:`${sColor(a.severity)}18`, color:sColor(a.severity) }}>{a.severity}</span>
                       </div>
                       {a.status!=='COMPLETED'&&a.status!=='CANCELLED'&&<button className="btn btn-primary btn-sm" onClick={()=>startRx(a)}>💊 Prescribe</button>}
-                      {a.status==='COMPLETED'&&<a href={`http://localhost:5000/api/doctor/prescription/${a.id}/download`} target="_blank" rel="noreferrer" className="btn btn-ghost btn-sm">📄 PDF</a>}
+                      {a.status==='COMPLETED'&&<a href={`${apiBaseUrl}/doctor/prescription/${a.id}/download`} target="_blank" rel="noreferrer" className="btn btn-ghost btn-sm">📄 PDF</a>}
                     </div>
                   </div>
                 </div>

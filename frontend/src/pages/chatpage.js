@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { symptomAPI, authAPI } from '../api/api';
+import { symptomAPI } from '../api/api';
 import Navbar from '../components/navbar';
 
 const QUICK_SYMPTOMS = [
@@ -70,14 +70,8 @@ export default function ChatPage() {
 
   const loadHistory = async () => {
     try {
-      const res = await authAPI.profile();
-      if (res.data) {
-        // load symptom history via api
-        const h = await fetch('http://localhost:5000/api/symptoms/history', {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-        }).then(r => r.json());
-        if (h.history) setHistory(h.history);
-      }
+      const res = await symptomAPI.history();
+      if (res.data?.history) setHistory(res.data.history);
     } catch {}
   };
 
