@@ -109,6 +109,10 @@ export default function LoginPage() {
             <p style={{ color:'var(--text3)', fontSize:14 }}>
               Sign in to access your health dashboard
             </p>
+            <Link to="/admin" className="btn btn-outline"
+              style={{ marginTop:18, textDecoration:'none', fontSize:13 }}>
+              Admin Portal →
+            </Link>
           </div>
 
           {error && (
@@ -168,10 +172,6 @@ export default function LoginPage() {
             Medical staff?{' '}
             <Link to="/doctor/login" style={{ color:'var(--g600)', fontWeight:600 }}>Doctor Portal →</Link>
           </p>
-          <Link to="/admin" className="btn btn-outline btn-full"
-            style={{ marginTop:18, textDecoration:'none', fontSize:13 }}>
-            Admin Portal →
-          </Link>
         </div>
       </div>
     </div>
