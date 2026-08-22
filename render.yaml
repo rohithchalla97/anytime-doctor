@@ -2,9 +2,9 @@ services:
   - type: web
     name: anytime-doctor-api
     runtime: python
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    rootDir: .
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --chdir backend app:app
     envVars:
       - key: DATABASE_URL
         fromDatabase:
