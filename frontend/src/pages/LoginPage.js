@@ -168,10 +168,10 @@ export default function LoginPage() {
             Medical staff?{' '}
             <Link to="/doctor/login" style={{ color:'var(--g600)', fontWeight:600 }}>Doctor Portal →</Link>
           </p>
-          <p style={{ textAlign:'center', fontSize:13, color:'var(--text3)', marginTop:10 }}>
-            Administrator?{' '}
-            <Link to="/admin" style={{ color:'var(--g600)', fontWeight:600 }}>Admin Portal →</Link>
-          </p>
+          <Link to="/admin" className="btn btn-outline btn-full"
+            style={{ marginTop:18, textDecoration:'none', fontSize:13 }}>
+            Admin Portal →
+          </Link>
         </div>
       </div>
     </div>
