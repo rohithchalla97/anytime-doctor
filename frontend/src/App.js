@@ -12,6 +12,7 @@ import AppointmentsPage  from './pages/appointmentspage';
 import ProfilePage       from './pages/profilepage';
 import DoctorLoginPage   from './pages/doctorloginpage';
 import DoctorDashboard   from './pages/DoctorDashboard';
+import AdminPage          from './pages/AdminPage';
 
 function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth();
@@ -23,6 +24,11 @@ function DoctorRoute({ children }) {
   return token ? children : <Navigate to="/doctor/login" replace />;
 }
 
+function AdminRoute({ children }) {
+  const token = localStorage.getItem('adminToken');
+  return token ? children : <Navigate to="/admin" replace />;
+}
+
 function AppRoutes() {
   const { isLoggedIn } = useAuth();
   return (
@@ -32,6 +38,8 @@ function AppRoutes() {
       <Route path="/register"      element={<RegisterPage />} />
       <Route path="/doctor/login"  element={<DoctorLoginPage />} />
       <Route path="/doctor/dashboard" element={<DoctorRoute><DoctorDashboard /></DoctorRoute>} />
+      <Route path="/admin"         element={<AdminPage />} />
+      <Route path="/admin/manage" element={<AdminRoute><AdminPage /></AdminRoute>} />
       <Route path="/dashboard"     element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
       <Route path="/chat"          element={<PrivateRoute><ChatPage /></PrivateRoute>} />
       <Route path="/doctors"       element={<PrivateRoute><DoctorsPage /></PrivateRoute>} />

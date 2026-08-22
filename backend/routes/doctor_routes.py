@@ -2,7 +2,8 @@ from flask import Blueprint
 from controllers.doctor_controller import (
     doctor_login, doctor_profile, my_patients,
     write_prescription, download_prescription,
-    update_availability, export_appointments
+    update_availability, export_appointments,
+    admin_login, admin_doctors, admin_add_doctor, admin_update_status
 )
 
 doctor_bp = Blueprint('doctor', __name__)
@@ -17,3 +18,7 @@ doctor_bp.route('/export',                       methods=['GET'])(export_appoint
 
 from controllers.doctor_controller import update_doctor_profile
 doctor_bp.route('/profile/update', methods=['PUT'])(update_doctor_profile)
+doctor_bp.route('/admin/login', methods=['POST'])(admin_login)
+doctor_bp.route('/admin/doctors', methods=['GET'])(admin_doctors)
+doctor_bp.route('/admin/doctors', methods=['POST'])(admin_add_doctor)
+doctor_bp.route('/admin/doctors/<int:doctor_id>/status', methods=['PUT'])(admin_update_status)

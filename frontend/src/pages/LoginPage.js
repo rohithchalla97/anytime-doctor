@@ -168,6 +168,10 @@ export default function LoginPage() {
             Medical staff?{' '}
             <Link to="/doctor/login" style={{ color:'var(--g600)', fontWeight:600 }}>Doctor Portal →</Link>
           </p>
+          <p style={{ textAlign:'center', fontSize:13, color:'var(--text3)', marginTop:10 }}>
+            Administrator?{' '}
+            <Link to="/admin" style={{ color:'var(--g600)', fontWeight:600 }}>Admin Portal →</Link>
+          </p>
         </div>
       </div>
     </div>

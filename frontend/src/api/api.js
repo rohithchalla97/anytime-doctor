@@ -91,3 +91,21 @@ export const doctorAPI = {
     return r.json();
   },
 };
+
+export const adminAPI = {
+  login: async (email, password) => {
+    const r = await fetch(`${DOCTOR_BASE}/admin/login`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    return r.json();
+  },
+  call: async (url, opts = {}) => {
+    const token = localStorage.getItem('adminToken');
+    const r = await fetch(`${DOCTOR_BASE}/admin${url}`, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      ...opts,
+    });
+    return r.json();
+  },
+};

@@ -18,6 +18,10 @@ services:
         value: "0"
       - key: CORS_ORIGINS
         value: https://anytime-doctor-web.onrender.com
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
 
   - type: web
     name: anytime-doctor-web
