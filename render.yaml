@@ -2,14 +2,13 @@ services:
   - type: web
     name: anytime-doctor-api
     runtime: python
+    plan: free
     rootDir: .
     buildCommand: pip install -r backend/requirements.txt
     startCommand: gunicorn --chdir backend app:app
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: anytime-doctor-db-v2
-          property: connectionString
+        sync: false
       - key: SECRET_KEY
         generateValue: true
       - key: JWT_SECRET
@@ -35,12 +34,3 @@ services:
           type: web
           name: anytime-doctor-api
           envVarKey: RENDER_EXTERNAL_URL
-
-databases:
-  - name: anytime-doctor-db
-    databaseName: anytime_doctor
-    user: anytime_doctor
-  - name: anytime-doctor-db-v2
-    databaseName: anytime_doctor_v2
-    user: anytime_doctor_v2
-    plan: free
