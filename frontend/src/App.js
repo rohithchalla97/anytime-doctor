@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/authcontext';
 import { ThemeProvider } from './context/themecontext';
+import API from './api/api';
 
 import LoginPage         from './pages/LoginPage';
 import RegisterPage      from './pages/registerpage';
@@ -52,6 +53,7 @@ function AppRoutes() {
 
 function PWARegistration() {
   useEffect(() => {
+    API.get('/health').catch(() => {});
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
         .then(reg => console.log('SW registered:', reg.scope))

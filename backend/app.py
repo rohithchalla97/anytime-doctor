@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from sqlalchemy import text
 from database import db
 
 load_dotenv()
@@ -62,6 +63,11 @@ app.register_blueprint(doctor_bp,      url_prefix="/api/doctor")
 @app.route("/")
 def index():
     return {"message":"Anytime Doctor API","status":"OK","version":"2.0"}
+
+@app.route("/api/health")
+def health():
+    db.session.execute(text("SELECT 1"))
+    return {"status": "OK", "database": "connected"}
 
 with app.app_context():
     from models.user         import User
