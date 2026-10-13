@@ -28,9 +28,19 @@ CORS(app, resources={r"/api/*": {"origins": allowed_origins}},
      methods=["GET","POST","PUT","DELETE","OPTIONS"])
 
 app.config["SECRET_KEY"]                     = os.environ.get("SECRET_KEY", "dev-only-secret")
-app.config["SQLALCHEMY_DATABASE_URI"]        = os.environ.get(
-    "DATABASE_URL",
-    "postgresql+psycopg://postgres:your_password@localhost:5432/anytime_doctor",
+database_url = os.environ.get("DATABASE_URL", "").strip().strip('"').strip("'").strip()
+for variable_name in ("DATABASE_URL=", "DATABASE_URL_POOLED="):
+    if database_url.startswith(variable_name):
+        database_url = database_url.removeprefix(variable_name).strip().strip('"').strip("'")
+        break
+if os.environ.get("DATABASE_URL") is not None and not database_url:
+    raise RuntimeError("DATABASE_URL is empty; set it to the Neon PostgreSQL connection string.")
+if database_url.startswith("postgres://"):
+    database_url = "postgresql+psycopg://" + database_url[len("postgres://"):]
+elif database_url.startswith("postgresql://"):
+    database_url = "postgresql+psycopg://" + database_url[len("postgresql://"):]
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url or (
+    "postgresql+psycopg://anytime_doctor_v2:your_password@localhost:5432/anytime_doctor_v2"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"]                 = os.environ.get("JWT_SECRET", "dev-only-jwt-secret")
